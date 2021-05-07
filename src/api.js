@@ -26,10 +26,12 @@ async function callApi(endpoint, options = {}) {
 const api = {
   badges: {
     list() {
-      throw new Error("An error has ocurred.");
-      //return callApi("/badges");
+      return callApi("/badges");
     },
     create(badge) {
+      if (!badge.firstName || badge.firstName.lenght === 0) {
+        throw new Error("First name is required");
+      }
       return callApi(`/badges`, {
         method: "POST",
         body: JSON.stringify(badge),
